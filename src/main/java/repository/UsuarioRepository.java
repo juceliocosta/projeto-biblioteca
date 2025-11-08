@@ -6,17 +6,18 @@ import entity.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 public class UsuarioRepository {
-    private List<Usuario> usuarios = new ArrayList<>(
+    private final List<Usuario> usuarios = new ArrayList<>(
             List.of(
-                    new Administrador(1, "Admin"),
-                    new Leitor(2, "jucelio")
+                    new Administrador(1, "Admin", "admin"),
+                    new Leitor(2, "jucelio", "123")
             )
     );
 
-    public void cadastrar(Usuario usuario){
+    public void inserir(Usuario usuario){
         usuarios.add(usuario);
     }
 
@@ -24,20 +25,19 @@ public class UsuarioRepository {
         usuarios.remove(usuario);
     }
 
+    public Optional<Usuario> selecionaPorLogin(String login, String senha){
+        return usuarios.stream()
+                .filter(u -> u.getNome().equals(login) && Objects.equals(u.getSenha(), senha))
+                .findFirst();
+    }
+
+    public boolean eCadastrado(String nome, String senha){
+        return usuarios.stream()
+                .anyMatch(u ->
+                        u.getNome().equals(nome) && Objects.equals(u.getSenha(), senha));
+    }
+
     public List<Usuario> getUsuarios() {
         return usuarios;
     }
-
-    public boolean eCadastrado(String nome, int id){
-        return usuarios.stream()
-                .anyMatch(u -> u.getNome().equals(nome) && u.getId() == id);
-    }
-
-    /*
-    public Optional<Usuario> estaCadastrado(String nome, int id) {
-        return usuarios.stream()
-                .filter(usuario -> usuario.getNome().equalsIgnoreCase(nome))
-                .filter(usuario -> usuario.getId() == id)
-                .findFirst();
-    }*/
 }
