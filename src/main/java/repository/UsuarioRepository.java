@@ -12,12 +12,12 @@ import java.util.Optional;
 public class UsuarioRepository {
     private final List<Usuario> usuarios = new ArrayList<>(
             List.of(
-                    new Administrador(1, "Admin", "admin"),
-                    new Leitor(2, "jucelio", "123")
+                    new Administrador("1", "Admin", "admin"),
+                    new Leitor("2", "jucelio", "123")
             )
     );
 
-    public void inserir(Usuario usuario){
+    public void cadastrar(Usuario usuario){
         usuarios.add(usuario);
     }
 

@@ -3,12 +3,12 @@ package entity;
 import repository.EmprestimoRepository;
 
 public abstract class Usuario {
-    private int id;
+    private String id;
     private String nome;
     private String senha;
     private String tipo_usuario;
 
-    public Usuario(int id, String nome, String senha, String tipo_usuario) {
+    public Usuario(String id, String nome, String senha, String tipo_usuario) {
         this.id = id;
         this.nome = nome;
         this.senha = senha;
@@ -22,11 +22,11 @@ public abstract class Usuario {
 
 
     //----------Getters e Setters
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
