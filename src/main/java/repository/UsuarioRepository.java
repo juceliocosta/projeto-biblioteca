@@ -12,7 +12,7 @@ import java.util.Optional;
 public class UsuarioRepository {
     private final List<Usuario> usuarios = new ArrayList<>(
             List.of(
-                    new Administrador("1", "Admin", "admin"),
+                    new Administrador("1", "admin", "admin"),
                     new Leitor("2", "jucelio", "123")
             )
     );

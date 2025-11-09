@@ -21,7 +21,8 @@ public class Autenticacao {
                 String senha = entrada("Senha: ");
                 Optional<Usuario> user = usuarios.selecionaPorLogin(nome, senha);
                 if (user.isPresent()) {
-                    mensagem("Usuário Logado");
+
+                    mensagem(user.get().getTipo_usuario()+" "+user.get().getNome()+" Logado");
                     return user.get();
                 } else {
                     mensagem("Usuário não Cadastrado");
