@@ -15,10 +15,16 @@ public abstract class Usuario {
         this.tipo_usuario = tipo_usuario;
     }
 
-    public void registrarEmprestimo() {
+    public void registrarEmprestimo(Livro livro) {
+        Emprestimo novoEmprestimo = new Emprestimo(livro, this);
         EmprestimoRepository emprestimo = new EmprestimoRepository();
+
+        emprestimo.registrarEmprestimo(novoEmprestimo);
     }
-    public void registrarDevolucao(){}
+    public void registrarDevolucao(Livro livro){
+        EmprestimoRepository emprestimo = new EmprestimoRepository();
+        emprestimo.devolverEmprestimo(livro, this);
+    }
 
 
     //----------Getters e Setters
