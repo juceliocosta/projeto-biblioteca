@@ -2,6 +2,7 @@ package view;
 
 import entity.Livro;
 import entity.Usuario;
+import repository.EmprestimoRepository;
 import repository.LivroRepository;
 
 import java.util.Optional;
@@ -12,6 +13,7 @@ import static view.Console.mensagem;
 public class Catalogo {
     public void exibirCatalogo(Usuario usuario){
         LivroRepository livros = new LivroRepository();
+        EmprestimoRepository emprestimos = new EmprestimoRepository();
         String opcao = "1";
 
         while (!opcao.equals("0")){
@@ -35,10 +37,9 @@ public class Catalogo {
                         int ID = Integer.parseInt(entrada("ID do Livro: "));
                         Optional<Livro> livro = livros.encontrarLivro(ID);
 
-                        livro.ifPresent(usuario::registrarEmprestimo);
                         if (livro.isPresent()) {
-                            usuario.registrarEmprestimo(livro.get());
-                            mensagem("Empréstimo Realizado!");
+                            boolean registrado = usuario.registrarEmprestimo(livro.get(), emprestimos);
+                            if (registrado) mensagem("Empréstimo Realizado!");
                         }
                         if (livro.isEmpty()) mensagem("Livro não Existente!");
                     } catch (NumberFormatException e) {
@@ -46,6 +47,7 @@ public class Catalogo {
                     }
                 }
                 case "3" -> {
+
                 }
                 case "4" -> {
                     mensagem(livros.listarLivros(), false);
@@ -60,6 +62,8 @@ public class Catalogo {
                     }
 
                 }
+                case "5" -> mensagem(emprestimos.listarEmprestimos(usuario), false);
+                case "0" -> mensagem("Usuário "+usuario.getNome()+" Desconectado");
                 default -> mensagem("Valor Inválido!");
             }
         }

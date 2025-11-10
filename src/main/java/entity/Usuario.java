@@ -15,23 +15,20 @@ public abstract class Usuario {
         this.tipo_usuario = tipo_usuario;
     }
 
-    public void registrarEmprestimo(Livro livro) {
+    public boolean registrarEmprestimo(Livro livro, EmprestimoRepository repositorio) {
         Emprestimo novoEmprestimo = new Emprestimo(livro, this);
-        EmprestimoRepository emprestimo = new EmprestimoRepository();
-
-        emprestimo.registrarEmprestimo(novoEmprestimo);
+        return repositorio.registrarEmprestimo(novoEmprestimo);
     }
+
     public void registrarDevolucao(Livro livro){
         EmprestimoRepository emprestimo = new EmprestimoRepository();
         emprestimo.devolverEmprestimo(livro, this);
     }
 
-
     //----------Getters e Setters
     public String getId() {
         return id;
     }
-
     public void setId(String id) {
         this.id = id;
     }
@@ -39,17 +36,14 @@ public abstract class Usuario {
     public String getNome() {
         return nome;
     }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
 
     public String getSenha() { return senha;}
-
     public void setSenha(String senha) { this.senha = senha; }
 
     public String getTipo_usuario() { return tipo_usuario; }
-
     public void setTipo_usuario(String tipo_usuario) {
         this.tipo_usuario = tipo_usuario;
     }
