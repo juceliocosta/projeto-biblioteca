@@ -31,10 +31,7 @@ public class Livro {
     }
 
     public boolean isDisponivel() {
-        return disponibilidade;
-    }
-
-    public boolean isDisponibilidade() {
+        atualizarDisponibilidade();
         return disponibilidade;
     }
 

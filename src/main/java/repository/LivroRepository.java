@@ -23,7 +23,9 @@ public class LivroRepository {
 
     public String listarLivros() {
         return livros.stream()
-                .map(l -> "ID: "+l.getId()+" , Título: "+l.getTitulo())
+                .map(l -> "ID: "+l.getId()+
+                        " Qnt: "+l.getQuantidade()+
+                        " , Título: "+l.getTitulo())
                 .collect(Collectors.joining("\n"));
     }
 

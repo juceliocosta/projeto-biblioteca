@@ -16,8 +16,12 @@ public abstract class Usuario {
     }
 
     public boolean registrarEmprestimo(Livro livro, EmprestimoRepository repositorio) {
-        Emprestimo novoEmprestimo = new Emprestimo(livro, this);
-        return repositorio.registrarEmprestimo(novoEmprestimo);
+        if (livro.isDisponivel()) {
+            Emprestimo novoEmprestimo = new Emprestimo(livro, this);
+            livro.emprestar();
+            return repositorio.registrarEmprestimo(novoEmprestimo);
+        }
+        return false;
     }
 
     public void registrarDevolucao(Livro livro){

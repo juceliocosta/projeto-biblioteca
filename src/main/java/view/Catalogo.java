@@ -40,6 +40,7 @@ public class Catalogo {
                         if (livro.isPresent()) {
                             boolean registrado = usuario.registrarEmprestimo(livro.get(), emprestimos);
                             if (registrado) mensagem("Empréstimo Realizado!");
+                            else mensagem("Livro Indisponível no momento");
                         }
                         if (livro.isEmpty()) mensagem("Livro não Existente!");
                     } catch (NumberFormatException e) {
