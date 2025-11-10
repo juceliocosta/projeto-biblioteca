@@ -28,10 +28,10 @@ public class Catalogo {
             );
 
             switch (opcao) {
-                case "1" -> livros.listarLivros();
+                case "1" -> mensagem(livros.listarLivros(), false);
                 case "2" -> {
                     try {
-                        livros.listarLivros();
+                        mensagem(livros.listarLivros(), false);
                         int ID = Integer.parseInt(entrada("ID do Livro: "));
                         Optional<Livro> livro = livros.encontrarLivro(ID);
 
@@ -46,6 +46,19 @@ public class Catalogo {
                     }
                 }
                 case "3" -> {
+                }
+                case "4" -> {
+                    mensagem(livros.listarLivros(), false);
+                    try {
+                        int ID = Integer.parseInt(entrada("ID do Livro: "));
+                        Optional<String> livro = livros.detalharLivro(ID);
+
+                        livro.ifPresent(l -> mensagem(l, false));
+                        if (livro.isEmpty()) mensagem("Livro não Existente!");
+                    } catch (NumberFormatException e) {
+                        throw new RuntimeException(e);
+                    }
+
                 }
                 default -> mensagem("Valor Inválido!");
             }

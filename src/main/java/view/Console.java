@@ -27,6 +27,13 @@ public class Console {
         System.out.println(barras+"\n"+"\t"+mensagem+"\n"+barras);
     }
 
+    public static void mensagem(String mensagem, boolean tabulacao){
+        String barras = "========================================";
+        clearScreen();
+        if (tabulacao) System.out.println(barras+"\n"+"\t"+mensagem+"\n"+barras);
+        else System.out.println(barras+"\n"+mensagem+"\n"+barras);
+    }
+
     /**
      * Exibe uma mensagem no console pedindo uma entrada
      *

@@ -4,8 +4,7 @@ import entity.Livro;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static view.Console.clearScreen;
+import java.util.stream.Collectors;
 
 public class LivroRepository {
 
@@ -22,11 +21,10 @@ public class LivroRepository {
         livros.add(livro);
     }
 
-    public void listarLivros(){
-        clearScreen();
-        System.out.println("========================================");
-        livros.forEach(l -> System.out.println("ID: "+l.getId()+" , Titulo: "+l.getTitulo()));
-        System.out.println("========================================");
+    public String listarLivros() {
+        return livros.stream()
+                .map(l -> "ID: "+l.getId()+" , Título: "+l.getTitulo())
+                .collect(Collectors.joining("\n"));
     }
 
     public Optional<Livro> encontrarLivro(int ID){
@@ -35,12 +33,10 @@ public class LivroRepository {
                 .findFirst();
     }
 
-    public void listarDetalhesLivros(){
-        //String info = String.format("O item %s custa R$ %.2f.", item, preco);
-        livros.forEach(l -> {
-            String info = String.format("{ID: %d, Título: %s, Autor: %s, Quantidade: %d}",
-                    l.getId(), l.getTitulo(), l.getAutor(), l.getQuantidade());
-            System.out.println(info);
-        });
+    public Optional<String> detalharLivro(int ID){
+        return livros.stream()
+                .filter(l -> l.getId() == ID)
+                .findFirst()
+                .map(l->"ID: "+l.getId()+"\nTítulo: "+l.getTitulo()+"\nAutor: "+l.getAutor()+"\nQuantidade: "+l.getQuantidade());
     }
 }
