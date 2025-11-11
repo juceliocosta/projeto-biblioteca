@@ -13,6 +13,7 @@ public class Emprestimo {
 
     public Emprestimo(Livro livro, Usuario usuario) {
         this.dataEmprestimo = LocalDate.now();
+        //this.dataDevolucao = this.dataEmprestimo.plusDays(15);
         this.livro = livro;
         this.usuario = usuario;
     }
@@ -38,8 +39,8 @@ public class Emprestimo {
     public LocalDate getDataDevolucao() {
         return dataDevolucao;
     }
-    public void setDataDevolucao(LocalDate dataDevolucao) {
-        this.dataDevolucao = dataDevolucao;
+    public void setDataDevolucao() {
+        this.dataDevolucao = LocalDate.now();
     }
 
     public Livro getLivro() {

@@ -35,45 +35,25 @@ public class Livro {
         return disponibilidade;
     }
 
-    @Override
-    public String toString() {
-        return  "id=" + id +
-                ", titulo='" + titulo + '\'' +
-                ", autor='" + autor + '\'' +
-                ", quantidade=" + quantidade +
-                ", disponibilidade=" + disponibilidade +
-                '}';
+    public String detalharLivro() {
+        return  "ID: " + id +
+                "\tQnt: " + quantidade+
+                "\nTitulo: " + titulo +
+                "\nAutor: " + autor;
     }
 
     // ----------getters e setters----------
 
-    public int getId() {
-        return id;
-    }
+    public int getId() {return id;}
+    public void setId(int id) {this.id = id;}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getTitulo() {return titulo;}
+    public void setTitulo(String titulo) {this.titulo = titulo;}
 
-    public String getTitulo() {
-        return titulo;
-    }
+    public String getAutor() {return autor;}
+    public void setAutor(String autor) {this.autor = autor;}
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public String getAutor() {
-        return autor;
-    }
-
-    public void setAutor(String autor) {
-        this.autor = autor;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
+    public int getQuantidade() {return quantidade;}
 
     public void setQuantidade(int quantidade) {
         this.quantidade = Math.max(0, quantidade);

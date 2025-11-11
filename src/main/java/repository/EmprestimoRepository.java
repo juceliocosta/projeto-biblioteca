@@ -1,8 +1,6 @@
 package repository;
 
-import entity.Emprestimo;
-import entity.Livro;
-import entity.Usuario;
+import entity.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,14 +9,26 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class EmprestimoRepository {
-    private final List<Emprestimo> emprestimos = new ArrayList<>();
+    private final List<Emprestimo> emprestimos = new ArrayList<>(
+            List.of(
+            new Emprestimo(
+                    new Livro(0,"Atraso", "anonimo", 1),
+                    new Leitor("fulano", "123"))
+            )
+    );
     public boolean registrarEmprestimo(Emprestimo emprestimo){
         return emprestimos.add(emprestimo);
     }
 
     public void devolverEmprestimo(Livro livro, Usuario usuario) {
         Optional<Emprestimo> emprestimo = encontrarEmprestimo(livro, usuario);
-        emprestimo.ifPresent(emprestimos::remove);
+        if (emprestimo.isEmpty()) return;
+        emprestimo.get().setDataDevolucao();
+    }
+
+    public boolean removerEmprestimo(Emprestimo emprestimo){
+        if (emprestimos.contains(emprestimo)) return emprestimos.remove(emprestimo);
+        return false;
     }
 
     public Optional<Emprestimo> encontrarEmprestimo(Livro livro, Usuario usuario){
@@ -27,21 +37,14 @@ public class EmprestimoRepository {
                 .findFirst();
     }
 
-    public boolean temEmprestimo(Livro livro, Usuario usuario){
-        Optional<Emprestimo> emprestimoEncontrado = encontrarEmprestimo(livro, usuario);
-        return emprestimoEncontrado.isPresent();
+    public boolean temEmprestimo(){
+        return emprestimos.isEmpty();
     }
 
-    public String listarEmprestimos(Usuario usuario){
-        if (emprestimos.isEmpty()) return "Lista Vazia";
-        else return emprestimos.stream()
-                .filter(e -> e.getUsuario().getId().equals(usuario.getId()))
-                .map(e -> "Livro: "+ e.getLivro().getTitulo()+
-                        "\nData de Empréstimo: "+ e.getDataEmprestimo()+
-                        "\nData de Devolução: "+ Objects.toString(e.getDataDevolucao(), "Sem Data")+
-                        "\n----------------------------------------"
-                )
-                .collect(Collectors.joining("\n"));
+    public List<Emprestimo> listarEmprestimos(Usuario usuario){
+        return emprestimos.stream()
+                .filter(e -> e.getUsuario().equals(usuario))
+                .toList();
     }
 
     public String listarEmprestimos(){

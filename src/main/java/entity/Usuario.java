@@ -2,10 +2,11 @@ package entity;
 
 import repository.EmprestimoRepository;
 
+import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public abstract class Usuario {
-    private static final AtomicInteger userID = new AtomicInteger(3);
+    private static final AtomicInteger userID = new AtomicInteger(1);
 
     private String id;
     private String nome;
@@ -30,29 +31,19 @@ public abstract class Usuario {
     }
 
     public boolean registrarDevolucao(Livro livro, EmprestimoRepository repositorio){
-        if (repositorio.temEmprestimo(livro, this)) {
-            repositorio.devolverEmprestimo(livro, this);
-            livro.devolver();
-
-            return true;
-        }
-        return false;
+        List<Emprestimo> emprestimos = repositorio.listarEmprestimos(this);
+        if (emprestimos.isEmpty()) return false;
+        repositorio.devolverEmprestimo(livro, this);
+        livro.devolver();
+        return true;
     }
 
     //----------Getters e Setters
-    public String getId() {
-        return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
+    public String getId() {return id;}
+    public void setId(String id) {this.id = id;}
 
-    public String getNome() {
-        return nome;
-    }
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    public String getNome() {return nome;}
+    public void setNome(String nome) {this.nome = nome;}
 
     public String getSenha() { return senha;}
     public void setSenha(String senha) { this.senha = senha; }

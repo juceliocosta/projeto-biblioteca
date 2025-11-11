@@ -1,7 +1,8 @@
 package view;
 
+import entity.Emprestimo;
+import entity.Leitor;
 import entity.Livro;
-import entity.Usuario;
 import repository.EmprestimoRepository;
 import repository.LivroRepository;
 
@@ -11,7 +12,7 @@ import static view.Utilitarios.entrada;
 import static view.Utilitarios.mensagem;
 
 public class Catalogo {
-    public void exibirCatalogo(EmprestimoRepository emprestimos, LivroRepository livros, Usuario usuario){
+    public void exibirCatalogo(EmprestimoRepository emprestimos, LivroRepository livros, Leitor usuario){
         String opcao = "1";
 
         while (!opcao.equals("0")){
@@ -21,8 +22,6 @@ public class Catalogo {
                     (3) Devolver Livro
                     (4) Consultar detalhe do Livro
                     (5) Consultar Emprestimos e Devoluções
-                    (6) Exibir Controle de devolução
-                    (7) Exibir Histórico
                     (0) Sair
                       Opção:\s"""
             );
@@ -40,32 +39,50 @@ public class Catalogo {
                             if (registrado) mensagem("Empréstimo Realizado!");
                             else mensagem("Livro Indisponível no momento");
                         }
-                        if (livro.isEmpty()) mensagem("Livro não Existente!");
+                        if (livro.isEmpty()) mensagem("ID Inválido!");
                     } catch (NumberFormatException e) {
-                        mensagem("Valor Inválido!");
+                        mensagem("ID Inválido!");
                     }
                 }
                 case "3" -> {
-                    mensagem(emprestimos.listarEmprestimos(usuario));
-                    int ID = Integer.parseInt(entrada("ID do Livro: "));
-                    //verificar nos emprestimos se tem o tal livro, remover do emprestimoRepository
-                    //e incrementear a quantidade++ no livroRepository
+                    mensagem(usuario.listarEmprestimos(emprestimos), false);
+                    if (usuario.temEmprestimos(emprestimos)){
+                        try {
+                            String ID = entrada("ID do Livro: ");
+                            Optional<Livro> livro = livros.encontrarLivro(Integer.parseInt(ID));
+                            if (livro.isPresent()) {
+                                Livro livroEncontrado = livro.get();
+                                usuario.registrarDevolucao(livroEncontrado, emprestimos);
+                                //verificar o emprestimo se a devolução passou dos 15 dias e aplicar a multa
+                                Optional<Emprestimo> emprestimo =  emprestimos.encontrarEmprestimo(livro.get(), usuario);
+                                if (emprestimo.isPresent()){
+                                    double multa = emprestimo.get().calcularMulta();
+                                    if (multa > 0) mensagem("Livro Devolvido: \nTitulo: "+
+                                            livroEncontrado.getTitulo()+
+                                            "Multa por Atraso: "+String.format("%.2f", multa));
+                                }
+                                mensagem("Livro Devolvido: \nTitulo: " + livroEncontrado.getTitulo());
+                            } else mensagem("ID inválido");
 
+                        } catch (NumberFormatException e){
+                            mensagem("ID inválido!");
+                        }
+                    }
                 }
                 case "4" -> {
                     mensagem(livros.listarLivros(), false);
                     try {
                         int ID = Integer.parseInt(entrada("ID do Livro: "));
-                        Optional<String> livro = livros.detalharLivro(ID);
+                        Optional<Livro> livro = livros.encontrarLivro(ID);
 
-                        livro.ifPresent(l -> mensagem(l, false));
-                        if (livro.isEmpty()) mensagem("Livro não Existente!");
+                        livro.ifPresent(value ->
+                                mensagem(value.detalharLivro(), false));
                     } catch (NumberFormatException e) {
                         throw new RuntimeException(e);
                     }
 
                 }
-                case "5" -> mensagem(emprestimos.listarEmprestimos(usuario), false);
+                case "5" -> mensagem(usuario.listarEmprestimos(emprestimos), false);
                 case "0" -> mensagem("Usuário "+usuario.getNome()+" Desconectado");
                 default -> mensagem("Valor Inválido!");
             }
