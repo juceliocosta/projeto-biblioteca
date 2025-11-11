@@ -30,7 +30,7 @@ public class Livro {
         atualizarDisponibilidade();
     }
 
-    public boolean isDisponivel() {
+    public boolean estaDisponivel() {
         atualizarDisponibilidade();
         return disponibilidade;
     }

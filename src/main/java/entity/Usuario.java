@@ -16,7 +16,7 @@ public abstract class Usuario {
     }
 
     public boolean registrarEmprestimo(Livro livro, EmprestimoRepository repositorio) {
-        if (livro.isDisponivel()) {
+        if (livro.estaDisponivel()) {
             Emprestimo novoEmprestimo = new Emprestimo(livro, this);
             livro.emprestar();
             return repositorio.registrarEmprestimo(novoEmprestimo);
@@ -24,9 +24,14 @@ public abstract class Usuario {
         return false;
     }
 
-    public void registrarDevolucao(Livro livro){
-        EmprestimoRepository emprestimo = new EmprestimoRepository();
-        emprestimo.devolverEmprestimo(livro, this);
+    public boolean registrarDevolucao(Livro livro, EmprestimoRepository repositorio){
+        if (repositorio.temEmprestimo(livro, this)) {
+            repositorio.devolverEmprestimo(livro, this);
+            livro.devolver();
+
+            return true;
+        }
+        return false;
     }
 
     //----------Getters e Setters

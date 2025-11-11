@@ -2,8 +2,14 @@ package view;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.concurrent.atomic.AtomicInteger;
 
-public class Console {
+public class Utilitarios {
+    private static final AtomicInteger contadorID = new AtomicInteger(2);
+    public static String gerarProximoID(){
+        int proximoValor = contadorID.incrementAndGet(); 
+        return String.valueOf(proximoValor);
+    }
     /**
      * Faz a limpesa do console no Windows e Unix
      */

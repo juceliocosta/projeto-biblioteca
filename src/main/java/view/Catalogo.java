@@ -7,13 +7,11 @@ import repository.LivroRepository;
 
 import java.util.Optional;
 
-import static view.Console.entrada;
-import static view.Console.mensagem;
+import static view.Utilitarios.entrada;
+import static view.Utilitarios.mensagem;
 
 public class Catalogo {
-    public void exibirCatalogo(Usuario usuario){
-        LivroRepository livros = new LivroRepository();
-        EmprestimoRepository emprestimos = new EmprestimoRepository();
+    public void exibirCatalogo(EmprestimoRepository emprestimos, LivroRepository livros, Usuario usuario){
         String opcao = "1";
 
         while (!opcao.equals("0")){
@@ -48,6 +46,10 @@ public class Catalogo {
                     }
                 }
                 case "3" -> {
+                    mensagem(emprestimos.listarEmprestimos(usuario));
+                    int ID = Integer.parseInt(entrada("ID do Livro: "));
+                    //verificar nos emprestimos se tem o tal livro, remover do emprestimoRepository
+                    //e incrementear a quantidade++ no livroRepository
 
                 }
                 case "4" -> {

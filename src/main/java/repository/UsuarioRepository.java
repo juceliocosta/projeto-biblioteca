@@ -17,17 +17,24 @@ public class UsuarioRepository {
             )
     );
 
-    public void cadastrar(Usuario usuario){
-        usuarios.add(usuario);
+    public boolean registrar(Usuario usuario){
+        Optional<Usuario> user = buscarPorLogin(usuario.getNome(), usuario.getSenha());
+        if (user.isEmpty()) return usuarios.add(usuario);
+        return false;
     }
-
+    public Optional<Usuario> buscar(String ID){
+        return usuarios.stream()
+                .filter(u->u.getId().equals(ID))
+                .findFirst();
+    }
     public void remover(Usuario usuario){
         usuarios.remove(usuario);
     }
 
-    public Optional<Usuario> selecionaPorLogin(String login, String senha){
+
+    public Optional<Usuario> buscarPorLogin(String nome, String senha){
         return usuarios.stream()
-                .filter(u -> u.getNome().equals(login) && Objects.equals(u.getSenha(), senha))
+                .filter(u -> u.getNome().equals(nome) && Objects.equals(u.getSenha(), senha))
                 .findFirst();
     }
 

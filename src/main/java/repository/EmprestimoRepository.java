@@ -19,7 +19,6 @@ public class EmprestimoRepository {
 
     public void devolverEmprestimo(Livro livro, Usuario usuario) {
         Optional<Emprestimo> emprestimo = encontrarEmprestimo(livro, usuario);
-
         emprestimo.ifPresent(emprestimos::remove);
     }
 
@@ -27,6 +26,11 @@ public class EmprestimoRepository {
         return emprestimos.stream()
                 .filter(e -> e.getLivro().equals(livro) && Objects.equals(e.getUsuario(), usuario))
                 .findFirst();
+    }
+
+    public boolean temEmprestimo(Livro livro, Usuario usuario){
+        Optional<Emprestimo> emprestimoEncontrado = encontrarEmprestimo(livro, usuario);
+        return emprestimoEncontrado.isPresent();
     }
 
     public String listarEmprestimos(Usuario usuario){
