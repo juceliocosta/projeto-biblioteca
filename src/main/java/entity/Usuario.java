@@ -2,14 +2,19 @@ package entity;
 
 import repository.EmprestimoRepository;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public abstract class Usuario {
+    private static final AtomicInteger userID = new AtomicInteger(3);
+
     private String id;
     private String nome;
     private String senha;
     private String tipo_usuario;
 
-    public Usuario(String id, String nome, String senha, String tipo_usuario) {
-        this.id = id;
+
+    public Usuario(String nome, String senha, String tipo_usuario) {
+        this.id = String.valueOf(userID.incrementAndGet());
         this.nome = nome;
         this.senha = senha;
         this.tipo_usuario = tipo_usuario;

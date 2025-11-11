@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
 
 public class EmprestimoRepository {
     private final List<Emprestimo> emprestimos = new ArrayList<>();
-
     public boolean registrarEmprestimo(Emprestimo emprestimo){
         return emprestimos.add(emprestimo);
     }

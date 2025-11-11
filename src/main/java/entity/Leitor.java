@@ -5,8 +5,8 @@ import repository.LivroRepository;
 import java.util.Optional;
 
 public class Leitor extends Usuario {
-        public Leitor(String id, String nome, String senha) {
-        super(id, nome, senha, "Leitor");
+        public Leitor(String nome, String senha) {
+        super(nome, senha, "Leitor");
     }
 
     public String listarlivros(LivroRepository lr){

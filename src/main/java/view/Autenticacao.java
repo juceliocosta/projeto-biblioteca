@@ -31,7 +31,7 @@ public class Autenticacao {
                     mensagem("Usuário Já cadastrado");
                     return user.get();
                 } else {
-                    usuario = new Leitor(gerarProximoID(), nome, senha);
+                    usuario = new Leitor(nome, senha);
                     if(usuarios.registrar(usuario)) {
                         mensagem("Usuário Leitor Cadastrado");
                         return usuario;

@@ -12,10 +12,11 @@ import java.util.Optional;
 public class UsuarioRepository {
     private final List<Usuario> usuarios = new ArrayList<>(
             List.of(
-                    new Administrador("1", "admin", "admin"),
-                    new Leitor("2", "jucelio", "123")
+                    new Administrador("admin", "admin"),
+                    new Leitor( "jucelio", "123")
             )
     );
+
 
     public boolean registrar(Usuario usuario){
         Optional<Usuario> user = buscarPorLogin(usuario.getNome(), usuario.getSenha());
