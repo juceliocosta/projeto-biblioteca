@@ -2,14 +2,8 @@ package view;
 
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Utilitarios {
-    private static final AtomicInteger contadorID = new AtomicInteger(2);
-    public static String gerarProximoID(){
-        int proximoValor = contadorID.incrementAndGet(); 
-        return String.valueOf(proximoValor);
-    }
     /**
      * Faz a limpesa do console no Windows e Unix
      */
@@ -33,6 +27,11 @@ public class Utilitarios {
         System.out.println(barras+"\n"+"\t"+mensagem+"\n"+barras);
     }
 
+    /**
+     * Exibe uma mensagem enfeitada no console
+     * @param mensagem uma String
+     * @param tabulacao false para remove-la
+     */
     public static void mensagem(String mensagem, boolean tabulacao){
         String barras = "========================================";
         clearScreen();

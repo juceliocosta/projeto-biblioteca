@@ -38,11 +38,4 @@ public class LivroRepository {
                 .filter(l -> l.getId() == ID)
                 .findFirst();
     }
-
-    public Optional<String> detalharLivro(int ID){
-        return livros.stream()
-                .filter(l -> l.getId() == ID)
-                .findFirst()
-                .map(l->"ID: "+l.getId()+"\nTítulo: "+l.getTitulo()+"\nAutor: "+l.getAutor()+"\nQuantidade: "+l.getQuantidade());
-    }
 }
