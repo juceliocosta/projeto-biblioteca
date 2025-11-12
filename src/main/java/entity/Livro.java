@@ -1,14 +1,18 @@
 package entity;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class Livro {
+    private static final AtomicInteger livroID = new AtomicInteger(0);
+
     private int id;
     private String titulo;
     private String autor;
     private int quantidade; // para controle de quantidade de livros disponíveis
     private boolean disponibilidade;
 
-    public Livro(int id, String titulo, String autor, int quantidade) {
-        this.id = id;
+    public Livro(String titulo, String autor, int quantidade) {
+        this.id = livroID.incrementAndGet();
         this.titulo = titulo;
         this.autor = autor;
         this.quantidade = quantidade;

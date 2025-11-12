@@ -9,13 +9,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class EmprestimoRepository {
-    private final List<Emprestimo> emprestimos = new ArrayList<>(
-            List.of(
-            new Emprestimo(
-                    new Livro(0,"Atraso", "anonimo", 1),
-                    new Leitor("fulano", "123"))
-            )
-    );
+    private final List<Emprestimo> emprestimos = new ArrayList<>();
     public boolean registrarEmprestimo(Emprestimo emprestimo){
         return emprestimos.add(emprestimo);
     }

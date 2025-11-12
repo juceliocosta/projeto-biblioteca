@@ -1,8 +1,11 @@
 package view;
 
 import entity.Administrador;
+import entity.Livro;
 import repository.EmprestimoRepository;
 import repository.LivroRepository;
+
+import java.util.Optional;
 
 import static view.Utilitarios.entrada;
 import static view.Utilitarios.mensagem;
@@ -26,8 +29,28 @@ public class Gerenciador {
 
             switch (opcao) {
                 case "1" -> {
+                    try{
+                        String titulo = entrada("Titulo do Livro: ");
+                        String autor = entrada("Autor do Livro: ");
+                        String quantidade = entrada("Quantidade de Livros: ");
+                        Livro livro = new Livro(titulo, autor, Integer.parseInt(quantidade));
+                        if(livros.registrarLivro(livro)) mensagem("Livro Registrado!");
+                    } catch (NumberFormatException e){
+                        mensagem("ID Inválido!");
+                    }
                 }
                 case "2" -> {
+                    try{
+                        mensagem(livros.listarLivros(), false);
+                        String ID = entrada("ID do Livro: ");
+                        Optional<Livro> livro = livros.encontrarLivro(Integer.parseInt(ID));
+                        if (livro.isPresent()) {
+                            if (livros.removerLivro(livro.get())) mensagem("Livro Removido!");
+                        }
+                    } catch (NumberFormatException e){
+                        mensagem("ID Inválido!");
+                    }
+
                 }
                 case "3" -> {
                 }

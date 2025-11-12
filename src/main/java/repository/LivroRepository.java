@@ -11,14 +11,18 @@ public class LivroRepository {
     //simulei alguns livros para não ter que ficar inserindo
     private final List<Livro> livros = new ArrayList<>(
             List.of(
-                    new Livro(1, "Java Efetivo", "Joshua Bloch", 1),
-                    new Livro(2, "UML 2 - Uma Abordagem Prática", "Gilleanes T. A. Guedes", 2)
+                    new Livro("Java Efetivo", "Joshua Bloch", 1),
+                    new Livro("UML 2 - Uma Abordagem Prática", "Gilleanes T. A. Guedes", 2)
             )
     );
 
 
-    public void registrarLivro(Livro livro){
-        livros.add(livro);
+    public boolean registrarLivro(Livro livro){
+        return livros.add(livro);
+    }
+
+    public boolean removerLivro(Livro livro){
+        return livros.remove(livro);
     }
 
     public String listarLivros() {
