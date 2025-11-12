@@ -1,27 +1,22 @@
-# Compilar e Executar um Projeto Maven
+# Sistema de empréstimos e devoluções de Livros
+Um sistema de biblioteca via terminal permite o gerenciamento de livros, usuários (leitores e administradores), e empréstimos de livros. O sistema inclui funcionalidades como cadastro e consulta de livros, registro de usuários, controle de empréstimos de livros, devoluções e multas por atraso. Haverá dois tipos de usuários: administradores, que gerenciam o sistema; e leitores, que podem realizar empréstimos.
 
-## 1.  Acessar o Diretório do Projeto
-   Navegue até a pasta raiz do projeto, ex.:
+## Instalação
 
-```Bash
-cd ~/Área\ de\ trabalho/ProjetoBiblioteca
-```
-## 2. Compilar e Gerar as Classes
-   Use o Maven para baixar as dependências e compilar todo o código-fonte (.java) em arquivos .class. Isso garante que a pasta target/classes seja criada e preenchida.
+### Clone o repositório
 
-```Bash
-mvn install
+```shell
+git clone https://github.com/juceliocosta/projeto-biblioteca.git
 ```
 
-## 3. Executar o Programa
-- Se estiver na pasta raiz do projeto:
+### Build o projeto 
 
-```Bash
-java -cp target/classes StartApp
+```shell
+mvn clean package
 ```
 
-- Se não estiver na raiz do projeto, percorra o caminho e o execute, ex.:
+### Execute o Programa
 
-```Bash
-java -cp ./Área\ de\ trabalho/ProjetoBiblioteca/target/classes StartApp
+```shell
+java -jar target/projeto-biblioteca-1.0.jar 
 ```
