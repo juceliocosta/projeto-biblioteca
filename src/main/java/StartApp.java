@@ -8,9 +8,7 @@ import view.Autenticacao;
 import view.Catalogo;
 import view.Gerenciador;
 
-
-import static view.Utilitarios.entrada;
-import static view.Utilitarios.mensagem;
+import static view.Utilitarios.*;
 
 public class StartApp {
     public static void main(String[] args) {
@@ -21,6 +19,7 @@ public class StartApp {
         Autenticacao autenticacao = new Autenticacao();
 
         while (true){
+            clearScreen();
             Usuario usuario = autenticacao.logar(usuarios);
 
             if (usuario.getTipo_usuario().equals("Leitor")) {
