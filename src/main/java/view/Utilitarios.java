@@ -1,6 +1,5 @@
 package view;
 
-import java.io.IOException;
 import java.util.Scanner;
 
 public class Utilitarios {
@@ -8,12 +7,15 @@ public class Utilitarios {
      * Faz a limpesa do console no Windows e Unix
      */
     public static void clearScreen() {
-        System.out.print("\033[H\033[2J");
-        System.out.flush();
         try {
-            Runtime.getRuntime().exec("clear");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");//limpa se suporta ANSI
+                System.out.flush();
+            }
+        } catch (Exception e) {
+            System.out.println("\n");
         }
     }
 
