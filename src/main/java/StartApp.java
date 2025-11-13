@@ -29,7 +29,6 @@ public class StartApp {
             else if (usuario.getTipo_usuario().equals("Administrador")) {
                 Gerenciador gerenciador = new Gerenciador();
                 gerenciador.exibirGerenciador(emprestimos, livros, (Administrador) usuario);
-                System.out.println("Gerenciador em manutenção");
             }
             else mensagem("erro");
 
