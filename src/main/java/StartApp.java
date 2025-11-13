@@ -35,7 +35,10 @@ public class StartApp {
 
 
             String sair = entrada("Deseja sair? (s) Sim (N) Não: ");
-            if(sair.equalsIgnoreCase("s")) break;
+            if(sair.equalsIgnoreCase("s")) {
+                clearScreen();
+                break;
+            }
         }
     }
 }
